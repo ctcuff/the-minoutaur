@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wtype-limits -Wextra
+CXXFLAGS = -std=c++17 -Wall -Wtype-limits -Wextra -lpthread
 SRC = $(wildcard ./src/*.cpp)
 OUT_DIR = ./out
 
