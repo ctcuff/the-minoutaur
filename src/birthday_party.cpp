@@ -19,8 +19,8 @@ unsigned int activeThreadIndex;
 
 // Note: the bounds for min and max are both inclusive
 unsigned int generateRandomNumber(int min, int max) {
-    std::random_device dev;
-    std::mt19937 rng(dev());
+    std::random_device seed;
+    std::mt19937 rng(seed());
     std::uniform_int_distribution<std::mt19937::result_type> dist(min, max);
     return dist(rng);
 }
