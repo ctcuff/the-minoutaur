@@ -39,8 +39,6 @@ void admireVase(int threadIndex) {
             std::this_thread::sleep_for(std::chrono::milliseconds(generateRandomNumber(100, 500)));
             roomStatus = Status::AVAILABLE;
 
-            std::cout << "Guest #" << threadIndex << " has left the room" << std::endl;
-
             guestsVisited.insert(threadId);
         }
 
@@ -49,6 +47,7 @@ void admireVase(int threadIndex) {
 }
 
 int main() {
+    auto start = std::chrono::high_resolution_clock::now();
     std::array<std::thread, NUM_GUESTS> threads{};
 
     for (size_t i = 0; i < threads.size(); i++) {
@@ -59,5 +58,9 @@ int main() {
         thread.join();
     }
 
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration<double, std::milli>(end - start);
+
     std::cout << "All guests have viewed the vase." << std::endl;
+    std::cout << "Finished in " << duration.count() << "ms" << std::endl;
 }

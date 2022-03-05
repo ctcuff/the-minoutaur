@@ -38,12 +38,13 @@ void checkCupcake() {
                 currentCount++;
                 isCupcakeAvailable = true;
             }
-
+            
+            // Need to make sure this thread eats the cupcake once
             if (isCupcakeAvailable && !guestsPicked[0]) {
                 currentCount++;
                 isCupcakeAvailable = true;
                 guestsPicked[0] = true;
-                std::cout << "The first guest ate the cupcake!" << std::endl;
+                // std::cout << "The first guest ate the cupcake!" << std::endl;
             }
         }
 
@@ -66,6 +67,7 @@ void navigateLabyrinth(unsigned int threadIndex) {
 }
 
 int main() {
+    auto start = std::chrono::high_resolution_clock::now();
     std::array<std::thread, NUM_GUESTS> threads{};
 
     // Designate the first thread as the counter. This thread will keep track
@@ -76,14 +78,20 @@ int main() {
         threads[i] = std::thread(navigateLabyrinth, i);
     }
 
+
     // Keep picking guests at random until all guests have been counted
     while (currentCount < NUM_GUESTS) {
         activeThreadIndex = generateRandomNumber(0, NUM_GUESTS);
     }
 
+
     for (auto& thread : threads) {
         thread.join();
     }
 
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration<double, std::milli>(end - start);
+
     std::cout << "All " << currentCount << " guests have entered the labyrinth." << std::endl;
+    std::cout << "Finished in " << duration.count() << "ms" << std::endl;
 }
