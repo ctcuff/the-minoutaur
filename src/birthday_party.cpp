@@ -44,7 +44,6 @@ void checkCupcake() {
                 currentCount++;
                 isCupcakeAvailable = true;
                 guestsPicked[0] = true;
-                // std::cout << "The first guest ate the cupcake!" << std::endl;
             }
         }
 
@@ -83,7 +82,6 @@ int main() {
     while (currentCount < NUM_GUESTS) {
         activeThreadIndex = generateRandomNumber(0, NUM_GUESTS);
     }
-
 
     for (auto& thread : threads) {
         thread.join();
