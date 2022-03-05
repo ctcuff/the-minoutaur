@@ -7,7 +7,7 @@
 #include <thread>
 #include <unordered_set>
 
-#define NUM_GUESTS 10
+#define NUM_GUESTS 50
 
 enum Status {
     AVAILABLE,
@@ -36,7 +36,7 @@ void admireVase(int threadIndex) {
         if (roomStatus == Status::AVAILABLE && guestsVisited.find(threadId) == guestsVisited.end()) {
             roomStatus = Status::BUSY;
             std::cout << "Guest #" << threadIndex << " is admiring the vase" << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(generateRandomNumber(100, 500)));
+            std::this_thread::sleep_for(std::chrono::milliseconds(generateRandomNumber(10, 500)));
             roomStatus = Status::AVAILABLE;
 
             guestsVisited.insert(threadId);
